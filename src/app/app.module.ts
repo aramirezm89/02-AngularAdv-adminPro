@@ -7,10 +7,11 @@ import { NotPageFoundComponent } from './not-page-found/not-page-found.component
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    NotPageFoundComponent
+    NotPageFoundComponent,
   ],
   imports: [
     BrowserModule,

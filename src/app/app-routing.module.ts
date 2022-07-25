@@ -7,9 +7,8 @@ const routes: Routes = [
     path: 'dashboard', loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
   },
   {
-    path: '', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    path:'', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
   },
-
   { path: '**', component: NotPageFoundComponent },
 ];
 

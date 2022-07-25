@@ -11,14 +11,14 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: 'main', component: DashboardComponent },
       { path: 'grafica1', component: Grafica1Component },
       { path: 'progress', component: ProgressComponent },
+      { path: '**', redirectTo: 'main' },
     ],
   },
 
-  {path:'**',component:NotPageFoundComponent}
-
+  { path: '**', component: NotPageFoundComponent },
 ];
 
 @NgModule({
