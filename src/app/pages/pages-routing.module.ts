@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotPageFoundComponent } from '../not-page-found/not-page-found.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
@@ -14,11 +15,11 @@ const routes: Routes = [
       { path: 'main', component: DashboardComponent },
       { path: 'grafica1', component: Grafica1Component },
       { path: 'progress', component: ProgressComponent },
+      { path: 'account-settings', component: AccountSettingsComponent },
       { path: '**', redirectTo: 'main' },
     ],
   },
 
-  { path: '**', component: NotPageFoundComponent },
 ];
 
 @NgModule({
