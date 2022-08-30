@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
+import Swal from 'sweetalert2';
 import { ValidatorsService } from '../services/validators.service';
 
 @Component({
@@ -19,26 +21,59 @@ export class RegisterComponent {
           Validators.required,
         ],
       ],
-      password: ['', [Validators.required]],
-      password2: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
+      password2: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
       terminos: [false, [Validators.requiredTrue]],
     },
-    { validators: [this.validatorService.equalPasswords('password','password2')] }
+    {
+      validators: [
+        this.validatorService.equalPasswords('password', 'password2'),
+      ],
+    }
   );
 
   constructor(
     public fb: FormBuilder,
-    public validatorService: ValidatorsService
+    public validatorService: ValidatorsService,
+    public usuarioService: UsuariosService
   ) {}
 
   crearUsuario() {
     this.formSubmited = true;
-    console.log(this.miFormulario);
 
-    if (this.miFormulario.valid) {
-      console.log(this.miFormulario.get('password2'))
-      console.log('Posteando formulario');
+    if (this.miFormulario.invalid) {
+      return;
     }
+
+    //realizar posteo del formulario
+
+    this.usuarioService.crearUsuario(this.miFormulario.value).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        Swal.fire({
+          title: 'Error',
+          text: err.error.message,
+          confirmButtonColor: '#3085d6',
+          icon: 'error',
+        });
+      },
+    });
   }
 
   campoValido(campo: string): boolean {
