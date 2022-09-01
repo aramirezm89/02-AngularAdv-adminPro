@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -6,12 +6,16 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/auth.service';
 import { ValidatorsService } from '../services/validators.service';
 
+
+declare const google:any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild('googleBtn') googleBtn! : ElementRef;
   formSubmited = false;
   miFormulario = this.fb.group({
     email: [
@@ -29,20 +33,65 @@ export class LoginComponent implements OnInit {
   });
   constructor(
     private router: Router,
-    public fb: FormBuilder,
-    public authService: AuthService,
-    public validatorService: ValidatorsService,
-    public toastr: ToastrService
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private validatorService: ValidatorsService,
+    private toastr: ToastrService,
+    private ngZone:NgZone
   ) {}
 
+  ngAfterViewInit(): void {
+    this.googleInit();
+  }
+
   ngOnInit(): void {
-    const rememberEmail  = localStorage.getItem('email');
-    console.log(rememberEmail)
-    if(rememberEmail){
+    const rememberEmail = localStorage.getItem('email');
+    if (rememberEmail) {
       this.miFormulario.get('remember')?.setValue(true);
-    }else{
+    } else {
       this.miFormulario.get('remember')?.setValue(false);
     }
+  }
+
+  googleInit() {
+    google.accounts.id.initialize({
+      client_id:
+        '1019404074505-cqopt5kitl8qt8pp4qnf07fmcji8gcpk.apps.googleusercontent.com',
+      callback: (response:any) => this.handleCredentialResponse(response),
+    });
+    google.accounts.id.renderButton(
+      this.googleBtn.nativeElement,
+      { theme: 'outline', size: 'large' } // customization attributes
+    );
+  }
+
+  handleCredentialResponse(response:any){
+    console.log('Encoded JWT ID token: ' + response.credential);
+
+    this.authService.loginGoogle(response.credential).subscribe({
+      next: (response) => {
+        if (response.ok) {
+          if (this.miFormulario.get('remember')?.value) {
+            localStorage.setItem(
+              'email',
+              response.email
+            );
+          } else {
+            localStorage.removeItem('email');
+          }
+          this.toastr.success(response.nombre, 'Bienvenido');
+          this.router.navigateByUrl('/dashboard');
+        }
+      },
+      error: (err) => {
+        Swal.fire({
+          title: 'Error',
+          text: err.error.message,
+          confirmButtonColor: '#3085d6',
+          icon: 'error',
+        });
+      },
+    });
   }
 
   login() {

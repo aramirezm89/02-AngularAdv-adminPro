@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 import Swal from 'sweetalert2';
 import { ValidatorsService } from '../services/validators.service';
@@ -49,7 +51,9 @@ export class RegisterComponent {
   constructor(
     public fb: FormBuilder,
     public validatorService: ValidatorsService,
-    public usuarioService: UsuariosService
+    public usuarioService: UsuariosService,
+    public toastr: ToastrService,
+    public router: Router
   ) {}
 
   crearUsuario() {
@@ -63,7 +67,8 @@ export class RegisterComponent {
 
     this.usuarioService.crearUsuario(this.miFormulario.value).subscribe({
       next: (response) => {
-        console.log(response);
+         this.toastr.success(this.miFormulario.get('nombre')!.value, 'Bienvenido');
+         this.router.navigateByUrl('/dashboard');
       },
       error: (err) => {
         Swal.fire({
