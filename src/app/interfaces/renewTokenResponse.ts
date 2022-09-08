@@ -4,4 +4,17 @@ export interface RenewTokenResponse {
   ok:    boolean;
   uid:   string;
   token: string;
+  usuario: Usuario
+}
+
+
+export interface Usuario {
+
+    _id: string;
+    nombre: string ;
+    email: string;
+    img: string;
+    role: string;
+    google: false;
+
 }

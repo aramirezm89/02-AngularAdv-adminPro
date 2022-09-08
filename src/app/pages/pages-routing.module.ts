@@ -5,6 +5,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
@@ -16,12 +17,14 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     canLoad:[AuthGuard],
     children: [
+      //el atributo data esta siendo ocupado en el componente breadCurmbs ubicado en la carpeta shared
       { path: 'main', component: DashboardComponent,data:{titulo:'Main'}},
       { path: 'account-settings', component: AccountSettingsComponent,data:{titulo:'Ajuste de Cuenta'} },
       { path: 'grafica1', component: Grafica1Component,data:{titulo:'Graficas'} },
       { path: 'progress', component: ProgressComponent, data:{titulo:'ProgressBar'}},
       { path: 'promesa', component: PromesasComponent ,data:{titulo:'Promesa'}},
       { path: 'rxjs', component: RxjsComponent ,data:{titulo:'RXJS'}},
+      { path: 'profile', component: PerfilComponent ,data:{titulo:'Perfil de usuario'}},
       { path: '**', redirectTo: 'main' },
     ],
   },

@@ -5,6 +5,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginForm } from 'src/app/interfaces/loginForm';
 import { LoginResponse } from 'src/app/interfaces/loginResponse';
 import { RenewTokenResponse } from 'src/app/interfaces/renewTokenResponse';
+import { Usuario } from 'src/app/models/usuario.model';
 import { environment } from 'src/environments/environment';
 
 declare const google: any;
@@ -13,6 +14,12 @@ declare const google: any;
 })
 export class AuthService {
   baseUrl = environment.base_url;
+  private _usuario!: Usuario;
+
+  get usuario() {
+    return this._usuario;
+  }
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -45,8 +52,10 @@ export class AuthService {
 
     return this.http.get<RenewTokenResponse>(url, { headers }).pipe(
       map((response) => {
+        const { nombre, email, google, role, img = '', _id } = response.usuario;
+        this._usuario = new Usuario(nombre, email, '', img, role, google, _id);
         localStorage.setItem('token', response.token);
-        return response.ok;
+        return true;
       }),
       catchError((err) => of(false))
     );
