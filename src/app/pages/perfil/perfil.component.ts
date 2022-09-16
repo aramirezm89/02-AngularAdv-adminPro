@@ -45,7 +45,7 @@ export class PerfilComponent implements OnInit {
           title: 'Guardado',
           text: 'Usuario actualzado',
           confirmButtonColor: '#06d79c',
-          icon:'success'
+          icon: 'success',
         });
       },
       error: (error) => {
@@ -59,6 +59,7 @@ export class PerfilComponent implements OnInit {
     });
   }
 
+  //este metodo es utilizado para obtener y mostrar la vista previa de la imagen que quiera subir
   cambiarImagen(event: Event) {
     const target = event.target as HTMLInputElement;
     const file = target.files![0];
@@ -66,7 +67,7 @@ export class PerfilComponent implements OnInit {
 
     //fileReader lo utilizo para generar una imagen de vista previa
     if (!file) {
-       this.imagenTemporal = null;
+      this.imagenTemporal = null;
     }
 
     const reader = new FileReader();
@@ -74,7 +75,6 @@ export class PerfilComponent implements OnInit {
 
     reader.onloadend = () => {
       this.imagenTemporal = reader.result;
-      console.log(reader.result);
     };
   }
 
@@ -97,12 +97,12 @@ export class PerfilComponent implements OnInit {
           });
         },
         error: (err) => {
-           Swal.fire({
-             title: 'Error',
-             text: err.error.message,
-             confirmButtonColor: '#3085d6',
-             icon: 'error',
-           });
+          Swal.fire({
+            title: 'Error',
+            text: err.error.message,
+            confirmButtonColor: '#3085d6',
+            icon: 'error',
+          });
         },
       });
   }

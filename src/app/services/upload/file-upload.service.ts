@@ -12,6 +12,14 @@ export class FileUploadService {
     return localStorage.getItem('token') || '';
   }
 
+  get headers(){
+    return {
+      headers:{
+        'x-token':localStorage.getItem('token')||''
+      }
+    }
+  }
+
   constructor(private http: HttpClient) {}
 
   async actualizarFoto(
@@ -51,11 +59,7 @@ export class FileUploadService {
       const formData: FormData = new FormData();
       formData.append('img', archivo);
 
-    return this.http.put<SubirImagenResponse>(url,formData,{
-        headers:{
-          'x-token':this.token
-        }
-      })
+    return this.http.put<SubirImagenResponse>(url,formData,this.headers)
 
   }
 }

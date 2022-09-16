@@ -4,6 +4,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { PagesComponent } from './pages.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -14,21 +15,50 @@ const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    canActivate:[AuthGuard],
-    canLoad:[AuthGuard],
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children: [
       //el atributo data esta siendo ocupado en el componente breadCurmbs ubicado en la carpeta shared
-      { path: 'main', component: DashboardComponent,data:{titulo:'Main'}},
-      { path: 'account-settings', component: AccountSettingsComponent,data:{titulo:'Ajuste de Cuenta'} },
-      { path: 'grafica1', component: Grafica1Component,data:{titulo:'Graficas'} },
-      { path: 'progress', component: ProgressComponent, data:{titulo:'ProgressBar'}},
-      { path: 'promesa', component: PromesasComponent ,data:{titulo:'Promesa'}},
-      { path: 'rxjs', component: RxjsComponent ,data:{titulo:'RXJS'}},
-      { path: 'profile', component: PerfilComponent ,data:{titulo:'Perfil de usuario'}},
+      { path: 'main', component: DashboardComponent, data: { titulo: 'Main' } },
+      {
+        path: 'account-settings',
+        component: AccountSettingsComponent,
+        data: { titulo: 'Ajuste de Cuenta' },
+      },
+      {
+        path: 'grafica1',
+        component: Grafica1Component,
+        data: { titulo: 'Graficas' },
+      },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+        data: { titulo: 'ProgressBar' },
+      },
+      {
+        path: 'promesa',
+        component: PromesasComponent,
+        data: { titulo: 'Promesa' },
+      },
+      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RXJS' } },
+      {
+        path: 'profile',
+        component: PerfilComponent,
+        data: { titulo: 'Perfil de usuario' },
+      },
+
+      //mantenimientos
+
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        data: { titulo: 'Usuario de aplicación' },
+      },
+
+      //ruta no encontrada
       { path: '**', redirectTo: 'main' },
     ],
   },
-
 ];
 
 @NgModule({

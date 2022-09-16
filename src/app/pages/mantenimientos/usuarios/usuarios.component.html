@@ -1,0 +1,83 @@
+<!-- input de busqueda -->
+
+<div class="row animated fadeIn fast">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar usuario..."
+          [(ngModel)]="txtBusqueda"
+          (keyup)="buscar()"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------------- -->
+
+<!-- loading -->
+<div *ngIf="cargando" class="row animated fadeIn fast">
+  <div class="col">
+    <div class="alert alert-info text-center" role="alert">
+      <h4 class="alert-heading">Cargando</h4>
+      <i class="fa fa-spin fa-refresh fa-2x"></i>
+      <p>Por favor espere un momento...</p>
+    </div>
+  </div>
+</div>
+<!-- ------------------ -->
+
+<div *ngIf="!cargando" class="row animated fadeIn fast">
+  <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Total de usuarios {{totalUsuarios}}</h4>
+                                <h6 class="card-subtitle">Usuarios registrados en la aplicación</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Avatar</th>
+                                                <th>Correo</th>
+                                                <th>Nombre</th>
+                                                <th>Role</th>
+                                                <th>Auth</th>
+                                                <th class="text-nowrap">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let usuario of usuarios">
+                                              <td class="w100">
+                                                <img [src]="usuario.imgenUrl" (click)="abrirModal(usuario)">
+                                              </td>
+                                              <td>{{usuario.email}}</td>
+                                              <td>{{usuario.nombre | titlecase}}</td>
+                                              <td class="w100">
+                                                  <select class="form-control" [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
+                                                    <option value="USER_ROLE">Usuario</option>
+                                                    <option value="ADMIN_ROLE">Admin</option>
+                                                  </select>
+                                              </td>
+                                                <td class="w100">
+                                                  <span *ngIf="usuario.google" class="label label-danger">Google</span>
+                                                  <span *ngIf="!usuario.google" class="label label-info">Email</span>
+                                                </td>
+                                                <td class="w100" class="text-nowrap text-center">
+                                                    <a data-toggle="tooltip" data-original-title="Borrar" (click)="borrarUsuario(usuario.uid!)"> <i class="fa fa-close text-danger"></i> </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                              <div *ngIf="txtBusqueda.length === 0">
+                                  <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anterior</button>
+                                <button (click)="cambiarPagina(5)" class="btn btn-secondary ml-2">Siguiente</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
