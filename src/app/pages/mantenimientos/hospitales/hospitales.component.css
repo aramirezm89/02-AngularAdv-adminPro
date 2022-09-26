@@ -1,0 +1,21 @@
+img{
+  border-radius: 50%;
+  height: 55px;
+  cursor: pointer;
+}
+
+a{
+  cursor: pointer;
+}
+
+select{
+  width: 130px;
+}
+th{
+  text-align: center;
+}
+td{
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}

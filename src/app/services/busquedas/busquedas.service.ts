@@ -48,13 +48,18 @@ export class BusquedasService {
   ) {
     const url = `${base_url}/todo/coleccion/${coleccion}/${query}`;
 
-    return this.http.get<BusquedaPorColeccionResponse>(url, this.headers).pipe(
+    return this.http.get<any>(url, this.headers).pipe(
       map((response) => {
         switch (coleccion) {
           case 'usuarios':
            return this.transformarUsuarios(response.resultados);
+           break;
+           case 'hospitales':
+            return response.resultados
+           break
           default:
            return []
+
         }
       })
     );

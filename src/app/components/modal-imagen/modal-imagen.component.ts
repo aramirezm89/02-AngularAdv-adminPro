@@ -44,11 +44,12 @@ export class ModalImagenComponent implements OnInit {
 
        this.fileUploadService.actualizarFotoHTPPCLIENT(
          this.imagenASubir!,
-         'usuarios',
+         this.modalImagenService.tipo,
          this.modalImagenService.id
        ).subscribe({
         next : (res) =>{
           this.modalImagenService.nuevaImagen.emit(res.nombreArchivo)
+          this.imagenTemporal = null
           this.modalImagenService.cerrarModal();
         },
         error:(error) =>{

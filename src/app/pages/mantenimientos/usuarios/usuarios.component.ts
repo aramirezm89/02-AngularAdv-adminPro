@@ -83,6 +83,9 @@ export class UsuariosComponent implements OnInit,OnDestroy {
         next: (res) => {
           this.usuarios = res;
         },
+        error: (error) =>{
+          console.log(error)
+        }
       });
   }
 

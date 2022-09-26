@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {catchError, map, Observable,of,tap } from 'rxjs';
+import {map, Observable,tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ActualizarUsuarioResponse } from 'src/app/interfaces/actualizarUsuarioResponse';
 import { BorrarEntidad } from 'src/app/interfaces/borrarEntidad';

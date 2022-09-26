@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 
 declare function customInitFunctions() : void;
@@ -14,8 +14,8 @@ export class PagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.settingsService.mainTheme()
     customInitFunctions();
+     this.settingsService.mainTheme();
   }
 
 

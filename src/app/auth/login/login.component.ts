@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/auth.service';
 import { ValidatorsService } from '../services/validators.service';
+import { delay } from 'rxjs';
 
 
 declare const google:any;
@@ -79,7 +80,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
             localStorage.removeItem('email');
           }
           this.toastr.success(response.nombre, 'Bienvenido');
+
+
           this.router.navigateByUrl('/dashboard');
+
+
         }
       },
       error: (err) => {
