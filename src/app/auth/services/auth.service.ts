@@ -32,6 +32,7 @@ export class AuthService {
     return this.http.post<LoginResponse>(url, formData).pipe(
       tap((response) => {
         localStorage.setItem('token', response.token);
+         localStorage.setItem('menu', JSON.stringify(response.menu));
       })
     );
   }
@@ -41,6 +42,7 @@ export class AuthService {
     return this.http.post(url, { token }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
+         localStorage.setItem('menu', JSON.stringify(response.menu));
       })
     );
   }
@@ -55,6 +57,7 @@ export class AuthService {
         const { nombre, email, google, role, img = '', _id } = response.usuario;
         this._usuario = new Usuario(nombre, email, '', img, role, google, _id);
         localStorage.setItem('token', response.token);
+        localStorage.setItem('menu', JSON.stringify(response.menu));
         return true;
       }),
       catchError((err) => of(false))
@@ -64,6 +67,9 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
 
+    //TODO : Borrar MENU
+    localStorage.removeItem('menu');
+    //
     this.ngZone.run(() => {
       google.accounts.id.revoke('aramirez.unimarc@gmail.com', (done: any) => {
         this.router.navigateByUrl('/login');

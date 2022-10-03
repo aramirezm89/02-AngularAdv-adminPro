@@ -5,10 +5,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [BreadCrumbsComponent, SidebarComponent, HeaderComponent, FooterComponent],
-  imports:[CommonModule,RouterModule],
+  imports:[CommonModule,RouterModule,FormsModule],
   exports: [BreadCrumbsComponent, SidebarComponent, HeaderComponent,FooterComponent],
 })
 export class SharedModule {}

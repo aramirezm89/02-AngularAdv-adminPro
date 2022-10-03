@@ -131,12 +131,15 @@ export class UsuariosComponent implements OnInit,OnDestroy {
   cambiarRole(usuario: Usuario) {
     this.usuarioService.guardarUsuario(usuario).subscribe({
       next: (res) => {
+        /*valida si el usuario que entra a la app se quiere cambiar el rol a si mismo
+        de ser asi, cambia el valor de la propiedad rol por la del usuario actualizado que viene en la response
+        */
         if (usuario.uid === this.authService.usuario.uid) {
           this.authService.usuario.role = res.usuario.role;
         }
       },
       error: (err) => {
-        Swal.fire('Error', 'No se pudo actualizar el rol', 'error');
+        Swal.fire('Error',`${err.messsage}`, 'error');
       },
     });
   }

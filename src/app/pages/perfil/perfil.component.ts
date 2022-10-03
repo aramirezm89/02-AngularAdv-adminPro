@@ -24,7 +24,6 @@ export class PerfilComponent implements OnInit {
     private fileUploadService: FileUploadService
   ) {
     this.usuario = authService.usuario;
-    console.log(this.usuario);
     const { nombre, email } = this.usuario;
     this.miFormulario = this.fb.group({
       nombre: [nombre, [Validators.required]],

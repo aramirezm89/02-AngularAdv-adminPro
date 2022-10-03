@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from '../guards/admin.guard';
 import { AuthGuard } from '../guards/auth.guard';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
@@ -27,6 +29,11 @@ const routes: Routes = [
         path: 'account-settings',
         component: AccountSettingsComponent,
         data: { titulo: 'Ajuste de Cuenta' },
+      },
+      {
+        path:'buscar/:termino',
+        component:BusquedaComponent,
+        data:{titulo:'Busquedas'}
       },
       {
         path: 'grafica1',
@@ -55,6 +62,8 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsuariosComponent,
+        canActivate:[AdminGuard],
+        canLoad:[AdminGuard],
         data: { titulo: 'Mantenimiento de Usuario' },
       },
       {

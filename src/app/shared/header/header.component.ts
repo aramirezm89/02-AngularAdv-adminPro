@@ -11,13 +11,22 @@ import { Usuario } from 'src/app/models/usuario.model';
 export class HeaderComponent implements OnInit {
 
   usuario : Usuario;
-  constructor(private authService:AuthService) {
+  constructor(private authService:AuthService,private router :Router) {
    this.usuario = this.authService.usuario;
    }
 
   ngOnInit(): void {
   }
 
+
+  buscar(valor:string){
+    if(!valor){
+      return
+    }
+
+    this.router.navigateByUrl(`dashboard/buscar/${valor}`);
+
+  }
   logout() {
     this.authService.logout();
   }

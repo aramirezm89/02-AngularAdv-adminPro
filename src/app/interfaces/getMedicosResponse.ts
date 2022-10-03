@@ -7,6 +7,7 @@ export interface GetMedicosResponse {
   ok:      boolean;
   message: string;
   medicos: Medico[];
+  totalRegistro:number
 }
 
 export interface Medico {

@@ -5,6 +5,7 @@ export interface CrearUsuarioResponse {
   message: string;
   usuario: Usuario;
   token:   string;
+  menu:string;
 }
 
 export interface Usuario {

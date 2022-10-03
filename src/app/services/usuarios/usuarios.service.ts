@@ -40,6 +40,7 @@ export class UsuariosService {
     return this.http.post<CrearUsuarioResponse>(url, formData).pipe(
       tap((response) => {
         localStorage.setItem('token', response.token);
+         localStorage.setItem('menu', JSON.stringify(response.menu));
       })
     );
   }

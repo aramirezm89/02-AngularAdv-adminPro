@@ -25,12 +25,19 @@ export class MedicoService {
   }
   constructor(private http: HttpClient) {}
 
-  getMedicos() {
-    const url = `${baseUrl}/medicos`;
+  getMedicos(desde?:number) {
+    const url = `${baseUrl}/medicos?desde=${desde}`;
 
     return this.http.get<GetMedicosResponse>(url).pipe(
       map((response) => {
-        return response.medicos;
+       const {medicos,totalRegistro}= response;
+        return {
+          medicos,
+          totalRegistro
+        }
+
+
+
       })
     );
   }

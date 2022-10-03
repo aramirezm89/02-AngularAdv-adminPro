@@ -5,4 +5,5 @@ export interface LoginResponse {
   message: string;
   token:   string;
   nombre:string;
+  menu:string;
 }
